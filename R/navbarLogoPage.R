@@ -12,6 +12,7 @@
 #'
 #' @param title The title to display in the navbar
 #' @param logo Path (or URL) to logo file
+#' @param logo_padding: Padding in pixel around the logo. A vector `c(vertical, horizontal)`. Useful to adjust the logo size.
 #' @param favicon Path (relative or absolute) to favicon file. URLs not supported.
 #' @param shinyproxy Whether the app is running embedded in shinyproxy.
 #'   If TRUE, the logo acts as a link to the app list, a "sign out" button is
@@ -66,7 +67,7 @@
 #' The link to the admin panel will appear if:
 #'
 #' * `shinyproxy` is TRUE or auto detected
-#' * `shinyproxy_admin_roles` is passed to `navbarLogoPage`
+#' * `shinyproxy_admin_roles` is passed to `navbarLogoPage`. It should match the `admin-groups` parameter in `application.yml`
 #' * the logged in user has one of the right roles (via the `SHINYPROXY_USERGROUPS` environment variable which is set by shinyproxy)
 #'
 #'
@@ -94,6 +95,7 @@ navbarLogoPage <- function(title,
                            favicon = NULL,
                            shinyproxy = "auto",
                            shinyproxy_admin_roles = character(0),
+                           logo_padding = c(4, 6),
                            position = c("fixed-top", "static-top", "fixed-bottom"),
                            header = NULL,
                            footer = NULL,
@@ -210,14 +212,14 @@ navbarLogoPage <- function(title,
   }
 
   navbar_css <- system.file("extdata", "www/navbarLogoPage.css", package = "shinyhelpr")
-
+  logo_css <- glue::glue("padding: {logo_padding[1]}px {logo_padding[2]}px ;")
   # Left part of the header
   navbar_header_left <- function() {
     navbar_header_left_class <- "navbar-header navbar-left"
     if (collapsible)
       navbar_header_left_class <- paste(navbar_header_left_class, "pull-left")
     div(class = navbar_header_left_class,
-        img(src = logo, class = "navbar-brand"),
+        img(src = logo, class = "navbar-brand", style = logo_css),
         span(class = "navbar-brand hidden-sm hidden-xs", pageTitle),
         includeCSS(navbar_css)
     )
