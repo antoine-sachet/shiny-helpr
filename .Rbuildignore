@@ -1,6 +1,5 @@
 ^\.Rproj\.user$
 ^\.git$
-^examples$
 ^shiny\.Rproj$
 ^shiny\.sh$
 ^shiny\.cmd$
@@ -8,15 +7,6 @@
 ^\.gitignore$
 ^smoketests$
 ^res$
-^man-roxygen$
-^\.travis\.yml$
 ^staticdocs$
-^tools$
 ^srcjs$
-^CONTRIBUTING.md$
-^cran-comments.md$
 ^.*\.o$
-^appveyor\.yml$
-^revdep$
-^TODO-promises.md$
-^manualtests$
