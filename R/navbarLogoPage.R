@@ -17,6 +17,7 @@
 #'   If TRUE, the logo acts as a link to the app list, a "sign out" button is
 #'   added to the top right with the user's email displayed next to it.
 #'   Defaults to "auto" which detects whether SHINYPROXY_USERNAME is set.
+#' @param shinyproxy_admin_roles Character of user roles to be treated as admin. See details.
 #' @param ... \code{\link{tabPanel}} elements to include in the page. The
 #'   \code{navbarMenu} function also accepts strings, which will be used as menu
 #'   section headers. If the string is a set of dashes like \code{"----"} a
@@ -53,9 +54,22 @@
 #'   Useful if \code{title} is not a string.
 #' @return A UI defintion that can be passed to the \link{shinyUI} function.
 #'
-#' @details The \code{navbarMenu} function can be used to create an embedded
-#'   menu within the navbar that in turns includes additional tabPanels (see
-#'   example below).
+#' @details The integration with shiny proxy works the following way:
+#'
+#' #' The `shinyproxy` argument to navbarLogoPage can be set to `TRUE`, `FALSE` or `"auto"`.
+#' If the latter, whether the app is running within shinyproxy is detected by checking the environment variables
+#' for SHINYPROXY_USERNAME and SHINYPROXY_USERGROUPS, which are automatically set by shinyproxy when booting an app.
+#'
+#' When using a navbarLogoPage with shinyproxy, the shinyproxy navbar is made redundant by the app navbar which provides all the relevant links.
+#' You can use `hide-navbar: TRUE` in the shinyproxy `application.yml` to hide it.
+#'
+#' The link to the admin panel will appear if:
+#'
+#' * `shinyproxy` is TRUE or auto detected
+#' * `shinyproxy_admin_roles` is passed to `navbarLogoPage`
+#' * the logged in user has one of the right roles (via the `SHINYPROXY_USERGROUPS` environment variable which is set by shinyproxy)
+#'
+#'
 #'
 #' @seealso \code{\link{navbarPage}}, \code{\link{tabPanel}}, \code{\link{tabsetPanel}},
 #'   \code{\link{updateNavbarPage}}, \code{\link{insertTab}},
@@ -79,6 +93,7 @@ navbarLogoPage <- function(title,
                            selected = NULL,
                            favicon = NULL,
                            shinyproxy = "auto",
+                           shinyproxy_admin_roles = character(0),
                            position = c("fixed-top", "static-top", "fixed-bottom"),
                            header = NULL,
                            footer = NULL,
@@ -160,7 +175,7 @@ navbarLogoPage <- function(title,
     optional <- list()
     usergroups <- strsplit(Sys.getenv("SHINYPROXY_USERGROUPS"),
                            split = ",", fixed = TRUE)[[1]]
-    if ("shiny-admin" %in% usergroups) {
+    if (any(shinyproxy_admin_roles %in% usergroups)) {
       optional$admin_li <-
         tags$li(a(href = "/admin", target = "_top",
                   title = "Admin dashboard", icon("tachometer"), "Admin"))

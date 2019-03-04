@@ -1,4 +1,4 @@
-## Shiny helper
+## The shinyhelpr package
 
 This package defines the `navbarLogoPage` which is an improved `navbarPage` with
 
@@ -8,13 +8,18 @@ This package defines the `navbarLogoPage` which is an improved `navbarPage` with
 
 ## Integration with shinyproxy
 
-The shinyproxy navbar is now redundant since the app navbar provides all the required links. 
+The shinyproxy navbar is made redundant by the app navbar which provides all the relevant links. 
 You can use `hide-navbar: TRUE` in the shinyproxy `application.yml` to hide it.
-
 
 The `shinyproxy` argument to navbarLogoPage can be set to `TRUE`, `FALSE` or `"auto"`. 
 If the latter, whether the app is running within shinyproxy is detected by checking the environment variables 
 for SHINYPROXY_USERNAME and SHINYPROXY_USERGROUPS, which are automatically set by shinyproxy when booting an app.
+
+The link to the admin panel will appear if:
+
+* `shinyproxy` is TRUE or auto detected
+* `shinyproxy_admin_roles` is passed to `navbarLogoPage`. It should match the `admin-groups` parameter in `application.yml`.
+* the logged in user has one of the right roles (via the `SHINYPROXY_USERGROUPS` environment variable which is set by shinyproxy)
 
 ## Installation
 
