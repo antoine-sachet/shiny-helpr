@@ -1,4 +1,4 @@
-Package: shiny-helpr
+Package: shinyhelpr
 Type: Package
 Title: Web Application Framework for R
 Version: 1.2.0.9001
