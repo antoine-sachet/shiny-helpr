@@ -1,0 +1,18 @@
+a.navbar-brand {
+  padding: 4px 15px;
+}
+
+.navbar-brand > img {
+  height: 100%;
+  width: auto;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-menu > li > a {
+  color: #333333 !important;
+}

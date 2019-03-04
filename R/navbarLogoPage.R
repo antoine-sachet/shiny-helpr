@@ -62,12 +62,14 @@
 #'   \code{\link{showTab}}
 #'
 #' @examples
-#' eye_logo = "https://thegraphicsfairy.com/wp-content/uploads/2013/10/Free-Public-Domain-Watching-Eye-Image-GraphicsFairy.jpg"
-#' navbarPage("The all-seeing eye",
+#' eye_logo <- "https://thegraphicsfairy.com/wp-content/uploads/2013/10/Free-Public-Domain-Watching-Eye-Image-GraphicsFairy.jpg"
+#' navbarLogoPage(
+#'   title = "The all-seeing eye",
 #'   logo = eye_logo,
 #'   favicon = eye_logo,
-#'   tabPanel("What it sees", tags$h3("Everything.)),
-#'   tabPanel("What it doesn't see", tags$h1("The all-seing eye sees all."))
+#'   windowTitle = "Totally not a sect",
+#'   tabPanel("What it sees", tags$h3("Everything.")),
+#'   tabPanel("What it doesn't see", tags$h1("The all-seing eye sees ALL."))
 #' )
 #' @export
 navbarLogoPage <- function(title,
@@ -192,15 +194,17 @@ navbarLogoPage <- function(title,
     out
   }
 
+  navbar_css <- system.file("extdata", "www/navbarLogoPage.css", package = "shinyhelpr")
+
   # Left part of the header
   navbar_header_left <- function() {
     navbar_header_left_class <- "navbar-header navbar-left"
     if (collapsible)
       navbar_header_left_class <- paste(navbar_header_left_class, "pull-left")
     div(class = navbar_header_left_class,
-        a(class = "navbar-brand", href = "/", img(src = logo)),
+        img(src = logo, class = "navbar-brand"),
         span(class = "navbar-brand hidden-sm hidden-xs", pageTitle),
-        includeCSS("www/logo_navbar.css")
+        includeCSS(navbar_css)
     )
   }
 
