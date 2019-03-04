@@ -77,6 +77,7 @@
 #'   \code{\link{showTab}}
 #'
 #' @examples
+#' library("shiny")
 #' eye_logo <- "https://thegraphicsfairy.com/wp-content/uploads/2013/10/Free-Public-Domain-Watching-Eye-Image-GraphicsFairy.jpg"
 #' navbarLogoPage(
 #'   title = "The all-seeing eye",
@@ -86,6 +87,7 @@
 #'   tabPanel("What it sees", tags$h3("Everything.")),
 #'   tabPanel("What it doesn't see", tags$h1("The all-seing eye sees ALL."))
 #' )
+#' @importFrom glue glue
 #' @export
 navbarLogoPage <- function(title,
                            logo,
@@ -428,6 +430,7 @@ p_randomInt <- function(...) {
   withPrivateSeed(randomInt(...))
 }
 
+#' @importFrom httpuv getRNGState
 withPrivateSeed <- function(expr) {
   if (exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) {
     hasOrigSeed <- TRUE

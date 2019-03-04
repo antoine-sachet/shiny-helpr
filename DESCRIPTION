@@ -8,6 +8,8 @@ Authors@R: c(
 Description: Adds navbarLogoPage to shiny.
 License: GPL-3 | file LICENSE
 Imports:
-    shiny
+    shiny,
+    glue,
+    httpuv
 RoxygenNote: 6.1.1
 Encoding: UTF-8
