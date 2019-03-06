@@ -18,7 +18,7 @@
 #'   If TRUE, the logo acts as a link to the app list, a "sign out" button is
 #'   added to the top right with the user's email displayed next to it.
 #'   Defaults to "auto" which detects whether SHINYPROXY_USERNAME is set.
-#' @param shinyproxy_admin_roles Character of user roles to be treated as admin. See details.
+#' @param shinyproxy_admin_roles Character of user roles to be treated as admin. Not case sensitive. See details.
 #' @param ... \code{\link{tabPanel}} elements to include in the page. The
 #'   \code{navbarMenu} function also accepts strings, which will be used as menu
 #'   section headers. If the string is a set of dashes like \code{"----"} a
@@ -57,7 +57,7 @@
 #'
 #' @details The integration with shiny proxy works the following way:
 #'
-#' #' The `shinyproxy` argument to navbarLogoPage can be set to `TRUE`, `FALSE` or `"auto"`.
+#' The `shinyproxy` argument to navbarLogoPage can be set to `TRUE`, `FALSE` or `"auto"`.
 #' If the latter, whether the app is running within shinyproxy is detected by checking the environment variables
 #' for SHINYPROXY_USERNAME and SHINYPROXY_USERGROUPS, which are automatically set by shinyproxy when booting an app.
 #'
@@ -66,9 +66,11 @@
 #'
 #' The link to the admin panel will appear if:
 #'
-#' * `shinyproxy` is TRUE or auto detected
-#' * `shinyproxy_admin_roles` is passed to `navbarLogoPage`. It should match the `admin-groups` parameter in `application.yml`
-#' * the logged in user has one of the right roles (via the `SHINYPROXY_USERGROUPS` environment variable which is set by shinyproxy)
+#' - `shinyproxy` is TRUE or auto detected
+#'
+#' - `shinyproxy_admin_roles` is passed to `navbarLogoPage`. It should match the `admin-groups` parameter in `application.yml`
+#'
+#'  - the logged in user has one of the right roles (via the `SHINYPROXY_USERGROUPS` environment variable which is set by shinyproxy)
 #'
 #'
 #'
@@ -179,7 +181,7 @@ navbarLogoPage <- function(title,
     optional <- list()
     usergroups <- strsplit(Sys.getenv("SHINYPROXY_USERGROUPS"),
                            split = ",", fixed = TRUE)[[1]]
-    if (any(shinyproxy_admin_roles %in% usergroups)) {
+    if (any(toupper(shinyproxy_admin_roles) %in% toupper(usergroups))) {
       optional$admin_li <-
         tags$li(a(href = "/admin", target = "_top",
                   title = "Admin dashboard", icon("tachometer"), "Admin"))
