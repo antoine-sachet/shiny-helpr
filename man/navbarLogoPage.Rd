@@ -38,7 +38,7 @@ If TRUE, the logo acts as a link to the app list, a "sign out" button is
 added to the top right with the user's email displayed next to it.
 Defaults to "auto" which detects whether SHINYPROXY_USERNAME is set.}
 
-\item{shinyproxy_admin_roles}{Character of user roles to be treated as admin. See details.}
+\item{shinyproxy_admin_roles}{Character of user roles to be treated as admin. Not case sensitive. See details.}
 
 \item{position}{Determines whether the navbar should be displayed at the top
 of the page with normal scrolling behavior (\code{"static-top"}), pinned at
@@ -90,7 +90,7 @@ The key differences with a standard shiny::navbarPage are:
 
 The integration with shiny proxy works the following way:
 
-#' The `shinyproxy` argument to navbarLogoPage can be set to `TRUE`, `FALSE` or `"auto"`.
+The `shinyproxy` argument to navbarLogoPage can be set to `TRUE`, `FALSE` or `"auto"`.
 If the latter, whether the app is running within shinyproxy is detected by checking the environment variables
 for SHINYPROXY_USERNAME and SHINYPROXY_USERGROUPS, which are automatically set by shinyproxy when booting an app.
 
@@ -99,9 +99,11 @@ You can use `hide-navbar: TRUE` in the shinyproxy `application.yml` to hide it.
 
 The link to the admin panel will appear if:
 
-* `shinyproxy` is TRUE or auto detected
-* `shinyproxy_admin_roles` is passed to `navbarLogoPage`. It should match the `admin-groups` parameter in `application.yml`
-* the logged in user has one of the right roles (via the `SHINYPROXY_USERGROUPS` environment variable which is set by shinyproxy)
+- `shinyproxy` is TRUE or auto detected
+
+- `shinyproxy_admin_roles` is passed to `navbarLogoPage`. It should match the `admin-groups` parameter in `application.yml`
+
+ - the logged in user has one of the right roles (via the `SHINYPROXY_USERGROUPS` environment variable which is set by shinyproxy)
 }
 \examples{
 library("shiny")
