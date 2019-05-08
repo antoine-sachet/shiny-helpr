@@ -1,6 +1,6 @@
 ^\.Rproj\.user$
 ^\.git$
-^shiny\.Rproj$
+^.*\.Rproj$
 ^shiny\.sh$
 ^shiny\.cmd$
 ^run\.R$
@@ -10,3 +10,4 @@
 ^staticdocs$
 ^srcjs$
 ^.*\.o$
+^tmp$

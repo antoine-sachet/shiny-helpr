@@ -12,7 +12,7 @@
 #'
 #' @param title The title to display in the navbar
 #' @param logo Path (or URL) to logo file
-#' @param logo_padding: Padding in pixel around the logo. A vector `c(vertical, horizontal)`. Useful to adjust the logo size.
+#' @param logo_padding Padding in pixel around the logo. A vector `c(vertical, horizontal)`. Useful to adjust the logo size.
 #' @param favicon Path (relative or absolute) to favicon file. URLs not supported.
 #' @param shinyproxy Whether the app is running embedded in shinyproxy.
 #'   If TRUE, the logo acts as a link to the app list, a "sign out" button is
@@ -80,8 +80,9 @@
 #'
 #' @examples
 #' library("shiny")
-#' eye_logo <- "https://thegraphicsfairy.com/wp-content/uploads/2013/10/Free-Public-Domain-Watching-Eye-Image-GraphicsFairy.jpg"
-#' navbarLogoPage(
+#' eye_logo <- paste0("https://thegraphicsfairy.com/",
+#'   "wp-content/uploads/2013/10/Free-Public-Domain-Watching-Eye-Image-GraphicsFairy.jpg")
+#' ui <- navbarLogoPage(
 #'   title = "The all-seeing eye",
 #'   logo = eye_logo,
 #'   favicon = eye_logo,
@@ -89,6 +90,9 @@
 #'   tabPanel("What it sees", tags$h3("Everything.")),
 #'   tabPanel("What it doesn't see", tags$h1("The all-seing eye sees ALL."))
 #' )
+#' \dontrun{
+#'   shiny::runApp(shinyApp(ui = ui, server = function(...) {}))
+#' }
 #' @importFrom glue glue
 #' @export
 navbarLogoPage <- function(title,
@@ -291,6 +295,19 @@ buildTabset <- function(tabs, ulClass, textFilter = NULL, id = NULL,
                          `data-tabsetid` = tabsetId, lapply(tabs, "[[", 2))
 
   list(navList = tabNavList, content = tabContent)
+}
+
+# Text filter for navbarMenu's (plain text) separators
+navbarMenuTextFilter <- function(text) {
+  if (grepl("^\\-+$", text)) tags$li(class = "divider")
+  else tags$li(class = "dropdown-header", text)
+}
+
+`%OR%` <- function (x, y)
+{
+  if (is.null(x) || isTRUE(is.na(x)))
+    y
+  else x
 }
 
 # Builds tabPanel/navbarMenu items (this function used to be

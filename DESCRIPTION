@@ -1,15 +1,19 @@
 Package: shinyhelpr
 Type: Package
-Title: Web Application Framework for R
-Version: 1.2.0.9001
+Title: Helper functions for shiny
+Version: 0.0.1.9000
 Authors@R: c(
-    person("Antoine", "Sachet", role = c("cre"), email = "antoine.sac@gmail.com")
+    person("Antoine", "Sachet", role = c("aut", "cre"), email = "antoine@soundout.com"),
+    person("SoundOut Ltd", role = "cph")
     )
-Description: Adds navbarLogoPage to shiny.
+Description: Misc. helper functions for shiny.
 License: GPL-3 | file LICENSE
 Imports:
     shiny,
     glue,
-    httpuv
+    httpuv,
+    rlang,
+    purrr,
+    htmltools
 RoxygenNote: 6.1.1
 Encoding: UTF-8

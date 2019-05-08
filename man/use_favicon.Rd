@@ -14,9 +14,11 @@ Call `use_favicon` anywhere in your shiny app to add the specified favicon.
 }
 \examples{
 
-eye_logo <- "https://thegraphicsfairy.com/wp-content/uploads/2013/10/Free-Public-Domain-Watching-Eye-Image-GraphicsFairy.jpg"
+\dontrun{
+eye_logo <- paste0("https://thegraphicsfairy.com/wp-content/",
+  "uploads/2013/10/Free-Public-Domain-Watching-Eye-Image-GraphicsFairy.jpg")
 # Blank page with a favicon
 shinyApp(ui = fluidPage(use_favicon(eye_logo)),
          server = function(input, output) {})
-
+}
 }

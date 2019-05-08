@@ -40,6 +40,8 @@ Defaults to "auto" which detects whether SHINYPROXY_USERNAME is set.}
 
 \item{shinyproxy_admin_roles}{Character of user roles to be treated as admin. Not case sensitive. See details.}
 
+\item{logo_padding}{Padding in pixel around the logo. A vector `c(vertical, horizontal)`. Useful to adjust the logo size.}
+
 \item{position}{Determines whether the navbar should be displayed at the top
 of the page with normal scrolling behavior (\code{"static-top"}), pinned at
 the top (\code{"fixed-top"}), or pinned at the bottom
@@ -70,8 +72,6 @@ www directory). For example, to use the theme located at
 
 \item{windowTitle}{The title that should be displayed by the browser window.
 Useful if \code{title} is not a string.}
-
-\item{logo_padding:}{Padding in pixel around the logo. A vector `c(vertical, horizontal)`. Useful to adjust the logo size.}
 }
 \value{
 A UI defintion that can be passed to the \link{shinyUI} function.
@@ -107,8 +107,9 @@ The link to the admin panel will appear if:
 }
 \examples{
 library("shiny")
-eye_logo <- "https://thegraphicsfairy.com/wp-content/uploads/2013/10/Free-Public-Domain-Watching-Eye-Image-GraphicsFairy.jpg"
-navbarLogoPage(
+eye_logo <- paste0("https://thegraphicsfairy.com/",
+  "wp-content/uploads/2013/10/Free-Public-Domain-Watching-Eye-Image-GraphicsFairy.jpg")
+ui <- navbarLogoPage(
   title = "The all-seeing eye",
   logo = eye_logo,
   favicon = eye_logo,
@@ -116,6 +117,9 @@ navbarLogoPage(
   tabPanel("What it sees", tags$h3("Everything.")),
   tabPanel("What it doesn't see", tags$h1("The all-seing eye sees ALL."))
 )
+\dontrun{
+  shiny::runApp(shinyApp(ui = ui, server = function(...) {}))
+}
 }
 \seealso{
 \code{\link{navbarPage}}, \code{\link{tabPanel}}, \code{\link{tabsetPanel}},
