@@ -219,7 +219,7 @@ navbarLogoPage <- function(title,
     out
   }
 
-  navbar_css <- system.file("extdata", "www/navbarLogoPage.css", package = "shinyhelpr")
+  navbar_css <- system.file("www/navbarLogoPage.css", package = "shinyhelpr")
   logo_css <- glue::glue("padding: {logo_padding[1]}px {logo_padding[2]}px ;")
   # Left part of the header
   navbar_header_left <- function() {
